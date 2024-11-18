@@ -10,6 +10,7 @@ void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 
 /* instruction fetch */
 /* 10 Points */
+// Alex Nguyen
 int instruction_fetch(unsigned PC,unsigned *Mem,unsigned *instruction)
 {
   //Checking for word alignment

@@ -31,6 +31,7 @@ return 0;
 
 /* instruction partition */
 /* 10 Points */
+//Damien Way
 void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsigned *r2, unsigned *r3, unsigned *funct, unsigned *offset, unsigned *jsec)
 {
 
@@ -47,6 +48,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
 
 /* Read Register */
 /* 5 Points */
+//Damien Way
 void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigned *data2)
 {
 
@@ -55,6 +57,7 @@ void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigne
 
 /* Sign Extend */
 /* 10 Points */
+//Damien Way
 void sign_extend(unsigned offset,unsigned *extended_value)
 {
 

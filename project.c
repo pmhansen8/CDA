@@ -188,9 +188,27 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 
 /* Read / Write Memory */
 /* 10 Points */
+// Alex
 int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsigned *memdata,unsigned *Mem)
 {
+    // "If MemWrite = 1, write to memory."
+    
+    if (MemWrite == 1) {
+        Mem[ALUresult >> 2] = data2;
+    }
 
+    // "If MemRead = 1, read from memory."
+
+    if (MemRead == 1) {
+        *memdata = Mem[ALUresult >> 2];
+    }
+    
+    // For other outcomes = error
+    if (MemRead == 1 && MemWrite == 1) {
+        return 1;
+    }
+
+    return 0;
 }
 
 

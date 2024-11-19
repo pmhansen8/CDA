@@ -98,7 +98,18 @@ return 0;
 //Damien Way
 void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsigned *r2, unsigned *r3, unsigned *funct, unsigned *offset, unsigned *jsec)
 {
-
+    unsigned int instructionMover = instruction;
+    *op = (instructionMover & 0xFC000000) >> 26;
+    instructionMover = instructionMover << 6;
+    *r1 = (instructionMover & 0xF8000000) >> 27;
+    *jsec = (instructionMover & 0xFFFFFFC0) >> 6;
+    instructionMover = instructionMover << 5;
+    *r2 = (instructionMover & 0xF8000000) >> 27;
+    instructionMover = instructionMover << 5;
+    *r3 = (instructionMover & 0xF8000000) >> 27;
+    *offset = (instructionMover & 0xFFFF0000) >> 16;
+    instructionMover = instructionMover << 10;
+    *funct = (instructionMover & 0xF8000000) >> 27;
 }
 
 

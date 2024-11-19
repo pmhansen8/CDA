@@ -5,7 +5,70 @@
 /* 10 Points */
 void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 {
+    switch (ALUControl){
+        //Addition
+        case 0:
+            *ALUresult = A+B;
+            break;
 
+        //Subtraction
+        case 1:
+            *ALUresult = A-B;
+            break;
+
+        //Less than
+        case 2:
+            if((int)A < (int)B){
+                *ALUresult = 1;
+            }
+            else{
+                *ALUresult = 0;
+            }
+            break;
+
+        //Less than (unsigned)
+        case 3:
+            if(A < B){
+                *ALUresult = 1;
+            }
+            else{
+                *ALUresult = 0;
+            }
+            break;
+
+        //AND
+        case 4:
+            *ALUresult = (A & B);
+            break;
+
+        //OR
+        case 5:
+            *ALUresult = (A | B);
+            break;
+
+        //If A is less than 0
+        case 6:
+            if ((int)A < 0) {
+                *ALUresult = 1;
+            }
+            else{
+                *ALUresult = 0;
+            }
+            break;
+
+        //NOT
+        case 7:
+            *ALUresult = ~A;
+            break;
+    }
+
+    //Set Zero based on the results received. Set 1 if *ALUResult is zero, or else 0
+    if (*ALUresult == 0){
+        *Zero = 1;
+    }
+    else{
+        *Zero = 0;
+    }
 }
 
 /* instruction fetch */
@@ -68,7 +131,48 @@ void sign_extend(unsigned offset,unsigned *extended_value)
 /* 10 Points */
 int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigned funct,char ALUOp,char ALUSrc,unsigned *ALUresult,char *Zero)
 {
+    //Checks if ALUSrc is 0, if so, then operation will use R Instructions
+    if (ALUSrc == 0){
 
+        switch (funct){
+            //Unsigned Addition
+            case 0x21:
+                ALUOp = 0;
+                break;
+
+            //Unsigned Subtraction
+            case 0x23:
+                ALUOp = 1;
+                break;
+
+            //AND
+            case 0x24:
+                ALUOp = 4;
+                break;
+
+            //Set Less Than
+            case 0x2a:
+                ALUOp = 2;
+                break;
+
+            //Set Unsigned Less Than
+            case 0x2b:
+                ALUOp = 3;
+                break;
+
+            //Halts on invalid
+            default:
+                return 1;
+        }
+
+        ALU(data1, data2, ALUOp,ALUresult, Zero);
+    }
+
+    //Checks if ALUSrc is 1, if so, then operation will use I Instructions
+    else if(ALUSrc == 1){
+        ALU(data1, extended_value, ALUOp, ALUresult, Zero);//extended value passed through ALU instead of data2
+    }
+    return 0;
 }
 
 /* Read / Write Memory */

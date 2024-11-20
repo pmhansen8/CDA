@@ -135,6 +135,14 @@ void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigne
 //Damien Way
 void sign_extend(unsigned offset,unsigned *extended_value)
 {
+    if(offset > 0)
+  {
+    *extended_value = (offset & 0x0000FFFF);
+  }
+  else
+  {
+    *extended_value = (offset | 0xFFFF0000);
+  }
 
 }
 
